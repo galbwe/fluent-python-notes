@@ -83,8 +83,33 @@ def f(a):
 ```
 
 This code prints the value assigned to b outside of the function's scope. 
-##### Closures
-##### `nonlocal` keyword
+##### Closures and `nonlocal`
+ - Closure: a function that uses nonglobal variabes which are also not local to the function itself.
+ - Such a variable is called *nonlocal*, and must be declared inside a closure with the `nonlocal` keyword
+ - Example: a counter function that keeps track of its state using a closure and a nonlocal variable `i`
+ ```python
+    def counter():
+        i = 0
+        def get_next():
+            nonlocal i
+            i += 1
+            return i - 1
+        return get_next
+ ```
+
+ ```python
+>>> c = counter()
+>>> c()
+0
+>>> c()
+1
+>>> c()
+2
+>>> c()
+3
+ ```
+ 
+
 #### Simple Decorator
 
 
