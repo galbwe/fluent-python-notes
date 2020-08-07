@@ -21,7 +21,7 @@ func = decorator(func)
 Decorators are run at *import time*, before any other functions are executed.
 ### Applications
 #### Registries and composite strategy patterns
-- Registry: a collection of funcions.
+- Registry: a collection of functions.
     - ex: views in a web framework
 - Decorators can be used on functions to add them to a registry.
 - Ex: best_promo strategy
@@ -53,12 +53,36 @@ Calling without `lru_cache`, `fib(5)` makes the following number of calls with e
 The duplicated calls use extra time. Using memoization, `fib` is called once with each argument, the result is stored in a dictionary (?), and an O(1) lookup is performed for each subsequent function call instead of calling `fib` again.
 
 #### Generic Functions
-- **Generic function**: a function whose implementation depends on the type of the argument passed
-
+- **Generic function**: a function whose implementation depends on the type of argument passed
+- Example: function that convert's python objects to an HTML representation depending on the type
 
 ### Creating Your own decorators
 #### Preliminaries
 ##### Variable scope rules
+A variable is in the local scope of a function if it assigned a value in the function body, regardless of where the assignment is made. Example:
+
+```python
+b = 1
+def f(a):
+    print(a)
+    print(b)
+    b = 2
+```
+
+raises an unbound local error when trying to print b, even though there is already a global variable b.
+
+To use global variables inside a function's scope, they must be explicitly declared global using the `global` keyword
+
+```python
+b = 1
+def f(a):
+    global(b)
+    print(a)
+    print(b)
+    b = 2
+```
+
+This code prints the value assigned to b outside of the function's scope. 
 ##### Closures
 ##### `nonlocal` keyword
 #### Simple Decorator
@@ -116,3 +140,4 @@ The duplicated calls use extra time. Using memoization, `fib` is called once wit
         ```
 1. At a high level, how would you go about implementing each of the previous examples?
 1. A point the author makes is that the decorators are run at import time, but he didn't really explain why this is significant. Does anyone have insights to add here?
+1. Anyone understand the bytecode examples?
