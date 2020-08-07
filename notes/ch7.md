@@ -19,6 +19,23 @@ def func(*args, **kwargs):
 func = decorator(func)
 ```
 Decorators are run at *import time*, before any other functions are executed.
+
+Decorators can be composed, and the innermost decorator is applied first. For example,
+
+```python
+@decorator_1
+@decorator_2
+def func(*args, **kwargs):
+    return "something"
+```
+
+is equivalent to 
+```python
+def func(*args, **kwargs):
+    return "something"
+
+func = decorator_1(decorator_2(func))
+```
 ### Applications
 #### Registries and composite strategy patterns
 - Registry: a collection of functions.
@@ -108,11 +125,18 @@ This code prints the value assigned to b outside of the function's scope.
 >>> c()
 3
  ```
- 
 
 #### Simple Decorator
+Decorators are defined by writing a function which creates an inner function, and returns that inner function. Nonlocal variables must be declared with the `nonlocal` keyword, or by using `functools.wraps`
+
+Example: decorator that counts how many times a function was called and binds the number of calls to the function
+
+```python
+
+```
 
 
+#### Decorators with arguments
 
 ## Discussion Questions
 1. Anyone understand the quote at the beginning of the chapter about decorators deriving their names from compilers rather than the gang of four design pattern?
