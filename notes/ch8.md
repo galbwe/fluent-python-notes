@@ -43,6 +43,44 @@ print(x is x_copy)  # False
 - can override the behavior of `copy` and `deepcopy` by implementing the `__copy__` and `__deepcopy__` magic methods.
 
 
+## Mutable arguments to functions
+- *Call by sharing*: Parameters in a Python function are aliases of the actual arguements.
+    - Functions can change the data of any mutable object passed as a parameter, but cannot change the identity of that object.
+- Mutable types as parameters defaults are usually a bad idea.
+    - When used in `__init__` methods on a class the default object is shared between all instances of the class
+    - Haunted Bus example
+- Another gotcha: be careful not to alias mutable objects with an instance variable inside of a class.
+    - Twilight bus example: an instance of `TwilightBus` changes the contents of `basketball_team`, even though logically it should not have
+    acceess.
+    - Workaround: make sure mutable arguments are copied at the begining of the function
+
+## Garbage collection
+- Objects that are referenced by no variables may be garbage collected.
+    - The specific garbage collection algorithm depends on the implementation of python
+    - [PyPy, Garbage Collection, and a Deadlock](https://emptysqua.re/blog/pypy-garbage-collection-and-a-deadlock/)
+- The `del` keyword removes references to an object, not the object itself.
+
+
+## Weak References
+- *Weak Reference*: Reference to an object that does not increase its reference count for the purpose of garbage collection.
+- Implemented in Python as a callable that returns the referenced object if it still exists in memory, and `None` otherwise.
+- ```python
+    import weakref
+    x = {0, 1}
+    wref = weakref.ref(x)
+    ```
+- Use weakref collections instead of directly instantiating weak referenece
+    - `WeakValueDictionary`: mutable mapping where the values are weak references to objects.
+        - Automatically removes keys from the dictionary when referenced objects are deleted elsewhere in the program.
+        - commonly used for caching
+
+- Many built-in python objects, like lists and dictionaries cannot be the target of a weak reference
+    - workaround is to subclass these objects
+
+## Python optimizations with immutables
+- *Interning*: Sharing of string literals and small integers to avoid unnecessary duplication of objects in memory. 
+
+
 # Discussion Questions:
 1. Example 8-2 (with the Gizmos) worked for me in a terminal session, but not when I tried to write a test for it. Does anyone know what is going on? In brief, the following function returns `['a']` instead of what is shown in the terminal session. This is likely an issue with what the local scope is when `dir` is called.
     ```python
@@ -53,3 +91,6 @@ print(x is x_copy)  # False
         except TypeError:
             return dir()
     ```
+2. How would weak references be used in caching applications?
+3. Got an error trying to add an int object to a `WeakValueDictionary`. What's going on here?
+    - Second response to this [SO thread](https://stackoverflow.com/questions/9908013/weak-references-in-python) has the answer.
