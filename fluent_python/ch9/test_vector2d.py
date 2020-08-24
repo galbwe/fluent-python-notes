@@ -1,7 +1,7 @@
 import math
 import pytest
 
-from .vector import Vector2d, ShortVector2d
+from .vector2d import Vector2d, ShortVector2d
 
 
 class TestVector2d:
