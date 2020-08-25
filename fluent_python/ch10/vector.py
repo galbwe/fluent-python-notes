@@ -2,7 +2,8 @@ import math
 from array import array
 from functools import reduce
 from operator import or_
-from typing import Iterable
+from typing import Iterable, Union
+import numbers
 
 
 class Vector:
@@ -12,10 +13,10 @@ class Vector:
         self._components = array(self.typecode, components)
 
     def __repr__(self):
-        return f'{self.__class__.__name__}(' + ','.join(iter(self._components)) + ')'
+        return f'{self.__class__.__name__}(' + ', '.join((str(c) for c in self._components)) + ')'
 
     def __str__(self):
-        return f'<' + ','.join(iter(self._components)) + '>'
+        return f'<' + ', '.join((str(c) for c in self._components)) + '>'
 
     def __hash__(self):
         hashes = [hash(c) for c in self._components]
@@ -36,6 +37,17 @@ class Vector:
 
     def __bool__(self):
         return abs(self) > 0
+
+    def __len__(self):
+        return len(self._components)
+
+    def __getitem__(self, index: Union[numbers.Integral, slice]):
+        if isinstance(index, numbers.Integral):
+            return self._components[index]
+        elif isinstance(index, slice):
+            return Vector(self._components[index])
+        else:
+            raise TypeError(f'Invalid input to __getitem__ {index} of type {type(index)}.')
 
     @classmethod
     def frombytes(cls, octets):
