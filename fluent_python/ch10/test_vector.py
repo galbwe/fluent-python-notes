@@ -75,6 +75,31 @@ class TestVector:
         assert vec_len_3[1:4] == Vector([2, 3])
         with pytest.raises(TypeError):
             vec_len_3['index']
+    
+    def test_get_attr(self):
+        v = Vector(range(10))
+        assert (v.x, v.y, v.z, v.t) == (0, 1, 2, 3)
+        w = Vector(range(2))
+        assert (w.x, w.y) == (0, 1)
+        with pytest.raises(AttributeError):
+            w.z
+
+    def test_can_assign_to_shortcut_name(self):
+        v = Vector(range(10))
+        assert v.x == 0
+        v.x = 10
+        assert v.x == 10
+        assert v[0] == 10
+
+    def test_get_class_attributes(self):
+        v = Vector(range(10))
+        assert v.typecode == 'd'
+        assert v.shortcut_names == 'xyzt'
+
+    def test_hash(self):
+        assert hash(Vector([])) == 0
+        assert hash(Vector([1])) == 1
+        assert hash(Vector([0, 1])) == 1
 
 
 class TestShortVector:
