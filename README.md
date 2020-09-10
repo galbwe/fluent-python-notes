@@ -10,14 +10,15 @@ Repo with reading notes and code examples for *Fluent Python*, by Luciano Ramalh
  1. run the tests with `pytest`
 
 ## Chapters
- 1. 
+ 1.
  2.
- 3. 
- 4. 
- 5. 
- 6. 
- 7. 
- 8. Objects, References, Mutability, and Recycling
- 9. Pythonic Objects
- 10. Sequences
- 11. Interfaces: From Protocols to ABCs
+ 3.
+ 4.
+ 5.
+ 6.
+ 7.
+ 8. [Objects, References, Mutability, and Recycling](./notes/ch8.md)
+ 9. [Pythonic Objects](./notes/ch9.md)
+ 10. [Sequences](./notes/ch10.md)
+ 11. [Interfaces: From Protocols to ABCs](./notes/ch11.md)
+ 12. [Inheritance: For Good or Worse](./notes/ch12.md)
