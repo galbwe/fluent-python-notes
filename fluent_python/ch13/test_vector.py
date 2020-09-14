@@ -139,7 +139,6 @@ class TestVector:
             assert str(e) == "unsupported operand type(s) for +: 'Vector' and 'Vector'"
 
 
-
 class TestShortVector:
     @pytest.fixture
     def short_vec_1(self):
