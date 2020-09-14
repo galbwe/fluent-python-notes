@@ -17,8 +17,9 @@ Repo with reading notes and code examples for *Fluent Python*, by Luciano Ramalh
  5.
  6.
  7.
- 8. [Objects, References, Mutability, and Recycling](./notes/ch8.md)
- 9. [Pythonic Objects](./notes/ch9.md)
+ 8. [Objects, References, Mutability, and Recycling](./notes/ch08.md)
+ 9. [Pythonic Objects](./notes/ch09.md)
  10. [Sequences](./notes/ch10.md)
  11. [Interfaces: From Protocols to ABCs](./notes/ch11.md)
  12. [Inheritance: For Good or Worse](./notes/ch12.md)
+ 13. [Operator Overloading: Doing it Right](./notes/ch13.md)
